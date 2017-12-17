@@ -13,6 +13,9 @@
 		0B04C1D11FE50CDE0068EB25 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B04C1CF1FE50CDE0068EB25 /* Main.storyboard */; };
 		0B04C1DB1FE50FEE0068EB25 /* FileBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B04C1DA1FE50FEE0068EB25 /* FileBrowserViewController.swift */; };
 		0B04C1DD1FE510120068EB25 /* StatusBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B04C1DC1FE510120068EB25 /* StatusBarViewController.swift */; };
+		0BE809D41FE5F4B30071F1F5 /* NSViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE809D31FE5F4B30071F1F5 /* NSViewController+Extensions.swift */; };
+		0BE809D61FE5F6480071F1F5 /* FileScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE809D51FE5F6480071F1F5 /* FileScanner.swift */; };
+		0BE809D81FE5FBD80071F1F5 /* URL+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE809D71FE5FBD80071F1F5 /* URL+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +28,9 @@
 		0B04C1D31FE50CDE0068EB25 /* Countdown.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Countdown.entitlements; sourceTree = "<group>"; };
 		0B04C1DA1FE50FEE0068EB25 /* FileBrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileBrowserViewController.swift; sourceTree = "<group>"; };
 		0B04C1DC1FE510120068EB25 /* StatusBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarViewController.swift; sourceTree = "<group>"; };
+		0BE809D31FE5F4B30071F1F5 /* NSViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSViewController+Extensions.swift"; sourceTree = "<group>"; };
+		0BE809D51FE5F6480071F1F5 /* FileScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileScanner.swift; sourceTree = "<group>"; };
+		0BE809D71FE5FBD80071F1F5 /* URL+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +66,7 @@
 				0B04C1C91FE50CDE0068EB25 /* AppDelegate.swift */,
 				0B04C1CD1FE50CDE0068EB25 /* Assets.xcassets */,
 				0B04C1CF1FE50CDE0068EB25 /* Main.storyboard */,
+				0BE809D21FE5F49B0071F1F5 /* Utilities */,
 				0B04C1D91FE50F950068EB25 /* ViewControllers */,
 				0B04C1D21FE50CDE0068EB25 /* Info.plist */,
 				0B04C1D31FE50CDE0068EB25 /* Countdown.entitlements */,
@@ -75,6 +82,16 @@
 				0B04C1DC1FE510120068EB25 /* StatusBarViewController.swift */,
 			);
 			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		0BE809D21FE5F49B0071F1F5 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				0BE809D31FE5F4B30071F1F5 /* NSViewController+Extensions.swift */,
+				0BE809D71FE5FBD80071F1F5 /* URL+Extensions.swift */,
+				0BE809D51FE5F6480071F1F5 /* FileScanner.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -112,7 +129,7 @@
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Sandbox = {
-								enabled = 0;
+								enabled = 1;
 							};
 						};
 					};
@@ -154,9 +171,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				0B04C1DD1FE510120068EB25 /* StatusBarViewController.swift in Sources */,
+				0BE809D81FE5FBD80071F1F5 /* URL+Extensions.swift in Sources */,
 				0B04C1CC1FE50CDE0068EB25 /* MainWindowRootViewController.swift in Sources */,
+				0BE809D61FE5F6480071F1F5 /* FileScanner.swift in Sources */,
 				0B04C1DB1FE50FEE0068EB25 /* FileBrowserViewController.swift in Sources */,
 				0B04C1CA1FE50CDE0068EB25 /* AppDelegate.swift in Sources */,
+				0BE809D41FE5F4B30071F1F5 /* NSViewController+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,6 +304,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Countdown/Countdown.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 37G4TUHERL;
@@ -299,6 +320,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Countdown/Countdown.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 37G4TUHERL;

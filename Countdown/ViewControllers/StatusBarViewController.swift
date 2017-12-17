@@ -8,11 +8,35 @@
 
 import Cocoa
 
+enum FileSystemScanStatus {
+    case none
+    case scanning
+    case finished(TimeInterval)
+}
+    
 class StatusBarViewController: NSViewController {
-
+    
+    @IBOutlet private weak var progressIndicator: NSProgressIndicator!
+    @IBOutlet private weak var hintLabel: NSTextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do view setup here.
+        updateStatus(to: .none)
     }
     
+    func updateStatus(to status: FileSystemScanStatus) {
+        switch status {
+        case .none:
+            progressIndicator.stopAnimation(nil)
+            hintLabel.isHidden = true
+        case .scanning:
+            progressIndicator.startAnimation(nil)
+            hintLabel.isHidden = false
+            hintLabel.stringValue = "Scanning…"
+        case .finished(let timeInterval):
+            progressIndicator.stopAnimation(nil)
+            hintLabel.isHidden = false
+            hintLabel.stringValue = "Scan finished after \(timeInterval) seconds."
+        }
+    }
 }
