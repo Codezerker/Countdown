@@ -14,6 +14,28 @@ extension URL {
         return [
             .isDirectoryKey,
             .fileSizeKey,
+            .localizedNameKey,
+            .parentDirectoryURLKey,
         ]
+    }
+    
+    var isDirectory: Bool {
+        guard let values = try? resourceValues(forKeys: [.isDirectoryKey]),
+              let isDirectory = values.isDirectory else {
+            return false
+        }
+        return isDirectory
+    }
+    
+    var fileSize: Int? {
+        return (try? resourceValues(forKeys: [.fileSizeKey]))?.fileSize
+    }
+    
+    var localizedName: String? {
+        return (try? resourceValues(forKeys: [.localizedNameKey]))?.localizedName
+    }
+    
+    var parentDirectory: URL? {
+        return (try? resourceValues(forKeys: [.parentDirectoryURLKey]))?.parentDirectory
     }
 }

@@ -10,8 +10,8 @@ import Cocoa
 
 class MainWindowRootViewController: NSViewController {
     
+    private var rootNode: FileSystemNode?
     private var scanner: FileScanner?
-    
     private weak var fileBrowserViewController: FileBrowserViewController?
     private weak var statusBarViewController: StatusBarViewController?
     
@@ -42,9 +42,12 @@ class MainWindowRootViewController: NSViewController {
 extension MainWindowRootViewController: FileScannerDelegate {
     
     private func startScanner(at url: URL) {
+        rootNode = FileSystemNode(url: url)
         scanner = FileScanner(fileURL: url)
         scanner?.delegate = self
-        scanner?.start()
+        FileScanner.Queue.scanning.async {
+            self.scanner?.start()
+        }
     }
     
     func fileScannerDidStartScanning(_ scanner: FileScanner) {
@@ -54,13 +57,22 @@ extension MainWindowRootViewController: FileScannerDelegate {
     }
     
     func fileScanner(_ scanner: FileScanner, didScanFileAt url: URL) {
-        // ...
+        FileScanner.Queue.indexing.async {
+            let node = FileSystemNode(url: url)
+            do {
+                try self.rootNode?.addNodeToNearestParent(node)
+            } catch {
+                dump(error) // TODO: handle error
+            }
+        }
     }
     
     func fileScannerDidFinishScanning(_ scanner: FileScanner, elapsedTime: TimeInterval) {
         DispatchQueue.main.async {
             self.statusBarViewController?.updateStatus(to: .finished(elapsedTime))
             self.scanner = nil
+            
+            print(self.rootNode!.children)
         }
     }
 }

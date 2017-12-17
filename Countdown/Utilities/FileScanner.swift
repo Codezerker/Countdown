@@ -16,10 +16,14 @@ protocol FileScannerDelegate: class {
 
 class FileScanner {
     
+    struct Queue {
+        static let scanning = DispatchQueue(label: "com.codezerker.countdown.scanning")
+        static let indexing = DispatchQueue(label: "com.codezerker.countdown.indexing")
+    }
+    
     let fileURL: URL
     weak var delegate: FileScannerDelegate?
     
-    private static let scanningQueue = DispatchQueue(label: "com.codezerker.countdown.scanning")
     private var directoryEnumerator: FileManager.DirectoryEnumerator?
     
     init(fileURL: URL) {
@@ -29,18 +33,16 @@ class FileScanner {
     func start() {
         directoryEnumerator = FileManager.default.enumerator(at: fileURL,
                                                              includingPropertiesForKeys: URL.prefetchingPropertyKeys,
-                                                             options: [.skipsPackageDescendants],
+                                                             options: [],
                                                              errorHandler: { url, error in
-                                                                 // ...
+                                                                 // TODO: handle error
                                                                  return true
                                                              })
-        FileScanner.scanningQueue.async {
-            let startedAt = Date()
-            self.delegate?.fileScannerDidStartScanning(self)
-            while let url = self.directoryEnumerator?.nextObject() as? URL {
-                self.delegate?.fileScanner(self, didScanFileAt: url)
-            }
-            self.delegate?.fileScannerDidFinishScanning(self, elapsedTime: Date().timeIntervalSince(startedAt))
+        let startedAt = Date()
+        delegate?.fileScannerDidStartScanning(self)
+        while let url = directoryEnumerator?.nextObject() as? URL {
+            delegate?.fileScanner(self, didScanFileAt: url)
         }
+        delegate?.fileScannerDidFinishScanning(self, elapsedTime: Date().timeIntervalSince(startedAt))
     }
 }
