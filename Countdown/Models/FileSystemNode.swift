@@ -35,16 +35,15 @@ class FileSystemNode {
                 guard nodePath.hasPrefix(rootPath) else {
                     return
                 }
-                
-                let subpath = nodePath.replacingOccurrences(of: rootPath, with: "")
-                let subURL = URL(fileURLWithPath: subpath)
-                // assuming the first path component is always "/"
-                let nodeFirstPathComponent = subURL.pathComponents[1]
+
+                let rootPathComponents = url.pathComponents
+                let nodePathComponents = node.url.pathComponents
+                let nodeFirstUniquePathComponent = nodePathComponents[rootPathComponents.count]
                 
                 var parent: FileSystemNode?
                 for child in children {
                     guard let childLastPathComponent = child.url.pathComponents.last,
-                          childLastPathComponent == nodeFirstPathComponent else {
+                          childLastPathComponent == nodeFirstUniquePathComponent else {
                         continue
                     }
                     parent = child
