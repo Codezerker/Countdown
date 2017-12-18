@@ -17,6 +17,16 @@ class FileSystemNode {
     let url: URL
     var children = Set<FileSystemNode>()
     
+    private var _childrenCache: [FileSystemNode]?
+    var sortedChildren: [FileSystemNode] {
+        guard let cache = _childrenCache else {
+            let childrenCache = children.sorted { $0.fileSize > $1.fileSize }
+            _childrenCache = childrenCache
+            return childrenCache
+        }
+        return cache
+    }
+    
     var isDirectory: Bool {
         return url.isDirectory
     }

@@ -69,10 +69,11 @@ extension MainWindowRootViewController: FileScannerDelegate {
     
     func fileScannerDidFinishScanning(_ scanner: FileScanner, elapsedTime: TimeInterval) {
         DispatchQueue.main.async {
+            if let node = self.rootNode {
+                self.fileBrowserViewController?.display(node: node)
+            }
             self.statusBarViewController?.updateStatus(to: .finished(elapsedTime))
             self.scanner = nil
-            
-            print(self.rootNode!.children)
         }
     }
 }
