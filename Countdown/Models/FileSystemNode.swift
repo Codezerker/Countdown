@@ -10,72 +10,53 @@ import Foundation
 
 class FileSystemNode {
     
-    enum MutatingError: Error {
-        case parentNotFound
-    }
-    
     let url: URL
-    var children = Set<FileSystemNode>()
-    
-    private var _childrenCache: [FileSystemNode]?
-    var sortedChildren: [FileSystemNode] {
-        guard let cache = _childrenCache else {
-            let childrenCache = children.sorted { $0.fileSize > $1.fileSize }
-            _childrenCache = childrenCache
-            return childrenCache
-        }
-        return cache
-    }
-    
-    var isDirectory: Bool {
-        return url.isDirectory
-    }
-    
-    var fileSize: Int {
-        if isDirectory {
-            return children.reduce(0) { $0 + $1.fileSize }
-        } else {
-            return url.fileSize ?? 0
-        }
-    }
-            
+    let isDirectory: Bool
+    var fileSize: Int
+    var children = [FileSystemNode]()
+
     init(url: URL) {
         self.url = url
+        isDirectory = url.isDirectory
+        fileSize = url.fileSize ?? 0
     }
     
-    func addNodeToNearestParent(_ node: FileSystemNode) throws {
-        guard let parentURL = node.url.parentDirectory else {
-            throw MutatingError.parentNotFound
-        }
-        
-        if parentURL == url {
-            children.insert(node)
-        } else {
-            let rootPath = url.path
-            let nodePath = node.url.path
-            guard nodePath.hasPrefix(rootPath) else {
-                throw MutatingError.parentNotFound
+    func addNodeToNearestParent(_ node: FileSystemNode) {
+        autoreleasepool {
+            guard let parentURL = node.url.parentDirectory else {
+                return
             }
             
-            let subpath = nodePath.replacingOccurrences(of: rootPath, with: "")
-            let subURL = URL(fileURLWithPath: subpath)
-            // assuming the first path component is always "/"
-            let nodeFirstPathComponent = subURL.pathComponents[1]
-            
-            var parent: FileSystemNode?
-            for child in children {
-                guard let childLastPathComponent = child.url.pathComponents.last,
-                      childLastPathComponent == nodeFirstPathComponent else {
-                    continue
+            if parentURL == url {
+                children.append(node)
+            } else {
+                let rootPath = url.path
+                let nodePath = node.url.path
+                guard nodePath.hasPrefix(rootPath) else {
+                    return
                 }
-                parent = child
-                break
+                
+                let subpath = nodePath.replacingOccurrences(of: rootPath, with: "")
+                let subURL = URL(fileURLWithPath: subpath)
+                // assuming the first path component is always "/"
+                let nodeFirstPathComponent = subURL.pathComponents[1]
+                
+                var parent: FileSystemNode?
+                for child in children {
+                    guard let childLastPathComponent = child.url.pathComponents.last,
+                          childLastPathComponent == nodeFirstPathComponent else {
+                        continue
+                    }
+                    parent = child
+                    break
+                }
+                guard let validParent = parent else {
+                    return
+                }
+                
+                validParent.addNodeToNearestParent(node)
+                validParent.fileSize += node.fileSize
             }
-            guard let validParent = parent else {
-                throw MutatingError.parentNotFound
-            }
-            
-            try validParent.addNodeToNearestParent(node)
         }
     }
 }

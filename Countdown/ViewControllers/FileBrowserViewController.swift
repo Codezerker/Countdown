@@ -20,8 +20,10 @@ class FileBrowserViewController: NSViewController {
     }
     
     func display(node: FileSystemNode) {
+        let path = fileBrowser.path()
         displayingNode = node
         fileBrowser.loadColumnZero()
+        fileBrowser.setPath(path)
     }
 }
 
@@ -53,7 +55,7 @@ extension FileBrowserViewController: NSBrowserDelegate {
         guard let node = item as? FileSystemNode else {
             fatalError() // panic!! because we don't know what to do!!
         }
-        return node.sortedChildren[index]
+        return node.children.sorted(by: { $0.fileSize > $1.fileSize })[index]
     }
     
     func browser(_ browser: NSBrowser, isLeafItem item: Any?) -> Bool {
