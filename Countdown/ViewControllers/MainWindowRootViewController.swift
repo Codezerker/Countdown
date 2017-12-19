@@ -43,7 +43,7 @@ class MainWindowRootViewController: NSViewController {
 extension MainWindowRootViewController: FileScannerDelegate {
     
     private func startScanner(at url: URL) {
-        self.fileBrowserViewController?.display(node: nil)
+        fileBrowserViewController?.clearContents()
         rootNode = FileSystemNode(url: url)
         scanner = FileScanner(fileURL: url)
         scanner?.delegate = self

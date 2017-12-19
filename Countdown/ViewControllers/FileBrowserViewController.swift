@@ -37,6 +37,12 @@ class FileBrowserViewController: NSViewController {
             }
         }
     }
+    
+    func clearContents() {
+        displayingNode = nil
+        fileBrowser.loadColumnZero()
+        pathControl.url = nil
+    }
 }
 
 private extension FileBrowserViewController {
