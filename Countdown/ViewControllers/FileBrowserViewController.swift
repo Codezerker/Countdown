@@ -39,7 +39,7 @@ class FileBrowserViewController: NSViewController {
     }
 }
 
-extension FileBrowserViewController: NSBrowserDelegate {
+private extension FileBrowserViewController {
     
     private func setUpViews() {
         // hide bezels
@@ -49,11 +49,22 @@ extension FileBrowserViewController: NSBrowserDelegate {
         fileBrowser.setDefaultColumnWidth(200)
         fileBrowser.columnResizingType = .userColumnResizing
         // set delegate
+        fileBrowser.setCellClass(FileSystemBrowserCell.self)
         fileBrowser.delegate = self
         // set actions
         fileBrowser.target = self
         fileBrowser.action = #selector(fileBrowserClicked)
     }
+    
+    @IBAction private func fileBrowserClicked(_ sender: Any?) {
+        guard let selectedCell = fileBrowser.selectedCell() as? FileSystemBrowserCell else {
+            return
+        }
+        pathControl.url = selectedCell.displayingNode?.url
+    }
+}
+
+extension FileBrowserViewController: NSBrowserDelegate {
     
     func rootItem(for browser: NSBrowser) -> Any? {
         return displayingNode
@@ -88,14 +99,18 @@ extension FileBrowserViewController: NSBrowserDelegate {
         return "\(byteCount) - \(node.displayName)"
     }
     
-    @IBAction private func fileBrowserClicked(_ sender: Any?) {
-        guard let selectedIndexPath = fileBrowser.selectionIndexPath else {
+    func browser(_ sender: NSBrowser, willDisplayCell cell: Any, atRow row: Int, column: Int) {
+        guard let cell = cell as? FileSystemBrowserCell,
+              let node = fileBrowser.item(atRow: row, inColumn: column) as? FileSystemNode else {
             return
         }
-        pathControl.url = fileSystemNode(for: selectedIndexPath).url
+        let byteCount = formatter.string(fromByteCount: Int64(node.fileSize))
+        cell.title = "\(byteCount) - \(node.displayName)"
+        cell.image = node.displayIcon
+        cell.displayingNode = node
     }
     
-    private func fileSystemNode(for indexPath: IndexPath) -> FileSystemNode {
-        return fileBrowser.item(at: indexPath) as! FileSystemNode
+    func browser(_ browser: NSBrowser, heightOfRow row: Int, inColumn columnIndex: Int) -> CGFloat {
+        return 18
     }
 }

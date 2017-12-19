@@ -13,6 +13,7 @@
 		0B04C1D11FE50CDE0068EB25 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B04C1CF1FE50CDE0068EB25 /* Main.storyboard */; };
 		0B04C1DB1FE50FEE0068EB25 /* FileBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B04C1DA1FE50FEE0068EB25 /* FileBrowserViewController.swift */; };
 		0B04C1DD1FE510120068EB25 /* StatusBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B04C1DC1FE510120068EB25 /* StatusBarViewController.swift */; };
+		0B7967461FE90FF500B742E8 /* FileSystemBrowserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B7967441FE90FF500B742E8 /* FileSystemBrowserCell.m */; };
 		0BE809D41FE5F4B30071F1F5 /* NSViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE809D31FE5F4B30071F1F5 /* NSViewController+Extensions.swift */; };
 		0BE809D61FE5F6480071F1F5 /* FileScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE809D51FE5F6480071F1F5 /* FileScanner.swift */; };
 		0BE809D81FE5FBD80071F1F5 /* URL+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE809D71FE5FBD80071F1F5 /* URL+Extensions.swift */; };
@@ -30,6 +31,9 @@
 		0B04C1D31FE50CDE0068EB25 /* Countdown.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Countdown.entitlements; sourceTree = "<group>"; };
 		0B04C1DA1FE50FEE0068EB25 /* FileBrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileBrowserViewController.swift; sourceTree = "<group>"; };
 		0B04C1DC1FE510120068EB25 /* StatusBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarViewController.swift; sourceTree = "<group>"; };
+		0B7967431FE90FF400B742E8 /* Countdown-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Countdown-Bridging-Header.h"; sourceTree = "<group>"; };
+		0B7967441FE90FF500B742E8 /* FileSystemBrowserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileSystemBrowserCell.m; sourceTree = "<group>"; };
+		0B7967451FE90FF500B742E8 /* FileSystemBrowserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileSystemBrowserCell.h; sourceTree = "<group>"; };
 		0BE809D31FE5F4B30071F1F5 /* NSViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSViewController+Extensions.swift"; sourceTree = "<group>"; };
 		0BE809D51FE5F6480071F1F5 /* FileScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileScanner.swift; sourceTree = "<group>"; };
 		0BE809D71FE5FBD80071F1F5 /* URL+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extensions.swift"; sourceTree = "<group>"; };
@@ -85,6 +89,9 @@
 				0B04C1CB1FE50CDE0068EB25 /* MainWindowRootViewController.swift */,
 				0B04C1DA1FE50FEE0068EB25 /* FileBrowserViewController.swift */,
 				0B04C1DC1FE510120068EB25 /* StatusBarViewController.swift */,
+				0B7967451FE90FF500B742E8 /* FileSystemBrowserCell.h */,
+				0B7967441FE90FF500B742E8 /* FileSystemBrowserCell.m */,
+				0B7967431FE90FF400B742E8 /* Countdown-Bridging-Header.h */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -140,6 +147,7 @@
 				TargetAttributes = {
 					0B04C1C51FE50CDE0068EB25 = {
 						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Sandbox = {
@@ -191,6 +199,7 @@
 				0BE809D61FE5F6480071F1F5 /* FileScanner.swift in Sources */,
 				0B04C1DB1FE50FEE0068EB25 /* FileBrowserViewController.swift in Sources */,
 				0B04C1CA1FE50CDE0068EB25 /* AppDelegate.swift in Sources */,
+				0B7967461FE90FF500B742E8 /* FileSystemBrowserCell.m in Sources */,
 				0BE809DD1FE60EFD0071F1F5 /* FileSystemNode+Display.swift in Sources */,
 				0BE809D41FE5F4B30071F1F5 /* NSViewController+Extensions.swift in Sources */,
 			);
@@ -320,6 +329,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Countdown/Countdown.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -328,6 +338,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.codezerker.Countdown;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Countdown/ViewControllers/Countdown-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
@@ -336,6 +348,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Countdown/Countdown.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -344,6 +357,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.codezerker.Countdown;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Countdown/ViewControllers/Countdown-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
