@@ -41,12 +41,17 @@ class FileBrowserViewController: NSViewController {
 
 private extension FileBrowserViewController {
     
+    private struct Layout {
+        static let columnWidth: CGFloat = 200
+        static let rowHeight: CGFloat = 18
+    }
+    
     private func setUpViews() {
         // hide bezels
         fileBrowser.isTitled = false
         fileBrowser.separatesColumns = false
         // make resizable
-        fileBrowser.setDefaultColumnWidth(200)
+        fileBrowser.setDefaultColumnWidth(Layout.columnWidth)
         fileBrowser.columnResizingType = .userColumnResizing
         // set delegate
         fileBrowser.setCellClass(FileSystemBrowserCell.self)
@@ -111,6 +116,6 @@ extension FileBrowserViewController: NSBrowserDelegate {
     }
     
     func browser(_ browser: NSBrowser, heightOfRow row: Int, inColumn columnIndex: Int) -> CGFloat {
-        return 18
+        return Layout.rowHeight
     }
 }
