@@ -14,6 +14,7 @@ class FileSystemNode {
     let isDirectory: Bool
     var fileSize: Int
     var children = [FileSystemNode]()
+    var childrenMap = [String: FileSystemNode]()
 
     init(url: URL) {
         self.url = url
@@ -29,6 +30,7 @@ class FileSystemNode {
             
             if parentURL == url {
                 children.append(node)
+                childrenMap[node.url.lastPathComponent] = node
             } else {
                 let rootPath = url.path
                 let nodePath = node.url.path
@@ -40,16 +42,7 @@ class FileSystemNode {
                 let nodePathComponents = node.url.pathComponents
                 let nodeFirstUniquePathComponent = nodePathComponents[rootPathComponents.count]
                 
-                var parent: FileSystemNode?
-                for child in children {
-                    guard let childLastPathComponent = child.url.pathComponents.last,
-                          childLastPathComponent == nodeFirstUniquePathComponent else {
-                        continue
-                    }
-                    parent = child
-                    break
-                }
-                guard let validParent = parent else {
+                guard let validParent = childrenMap[nodeFirstUniquePathComponent] else {
                     return
                 }
                 
