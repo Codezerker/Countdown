@@ -41,7 +41,7 @@ class StatusBarViewController: NSViewController {
         case .finished(let timeInterval):
             progressIndicator.stopAnimation(nil)
             hintLabel.isHidden = false
-            hintLabel.stringValue = "Scan finished after \(timeInterval) seconds."
+            hintLabel.stringValue = "Scan finished \(timeInterval.description)."
         }
     }
 }
