@@ -725,15 +725,15 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <containerView translatesAutoresizingMaskIntoConstraints="NO" id="ZXM-y6-Io6">
-                                <rect key="frame" x="0.0" y="24" width="480" height="246"/>
+                                <rect key="frame" x="0.0" y="25" width="480" height="245"/>
                                 <connections>
                                     <segue destination="uVY-v6-dPQ" kind="embed" id="7cC-au-aQd"/>
                                 </connections>
                             </containerView>
                             <containerView translatesAutoresizingMaskIntoConstraints="NO" id="el7-Lv-iNn">
-                                <rect key="frame" x="0.0" y="0.0" width="480" height="24"/>
+                                <rect key="frame" x="0.0" y="0.0" width="480" height="25"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="24" id="B6i-32-083"/>
+                                    <constraint firstAttribute="height" constant="25" id="B6i-32-083"/>
                                 </constraints>
                                 <connections>
                                     <segue destination="1Sg-Jh-bGd" kind="embed" id="2Ni-1C-Pk3"/>
@@ -764,18 +764,32 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <browser verticalHuggingPriority="750" allowsExpansionToolTips="YES" enabled="YES" hasHorizontalScroller="YES" allowsEmptySelection="YES" defaultColumnWidth="100" minColumnWidth="100" titled="YES" separatesColumns="YES" allowsTypeSelect="YES" columnResizingType="auto" translatesAutoresizingMaskIntoConstraints="NO" id="fsX-ug-j3r">
-                                <rect key="frame" x="-1" y="0.0" width="452" height="323"/>
+                                <rect key="frame" x="-1" y="24" width="452" height="299"/>
                             </browser>
+                            <pathControl verticalHuggingPriority="750" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ksV-jK-UE6">
+                                <rect key="frame" x="0.0" y="0.0" width="450" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="24" id="gUd-Fy-VkF"/>
+                                </constraints>
+                                <pathCell key="cell" controlSize="small" selectable="YES" refusesFirstResponder="YES" alignment="left" placeholderString="" id="0Lb-qu-bV5">
+                                    <font key="font" metaFont="smallSystem"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </pathCell>
+                            </pathControl>
                         </subviews>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="ksV-jK-UE6" secondAttribute="trailing" id="1TD-LM-vVN"/>
                             <constraint firstItem="fsX-ug-j3r" firstAttribute="top" secondItem="ZJ0-Jd-atx" secondAttribute="top" constant="-1" id="HHP-NW-Uld"/>
+                            <constraint firstAttribute="bottom" secondItem="ksV-jK-UE6" secondAttribute="bottom" id="HTL-tT-IT5"/>
                             <constraint firstAttribute="trailing" secondItem="fsX-ug-j3r" secondAttribute="trailing" constant="-1" id="IEV-hW-aQ3"/>
-                            <constraint firstAttribute="bottom" secondItem="fsX-ug-j3r" secondAttribute="bottom" id="RAE-09-yk5"/>
+                            <constraint firstItem="ksV-jK-UE6" firstAttribute="top" secondItem="fsX-ug-j3r" secondAttribute="bottom" id="XQY-Rf-Hpl"/>
+                            <constraint firstItem="ksV-jK-UE6" firstAttribute="leading" secondItem="ZJ0-Jd-atx" secondAttribute="leading" id="g7I-Ja-f1T"/>
                             <constraint firstItem="fsX-ug-j3r" firstAttribute="leading" secondItem="ZJ0-Jd-atx" secondAttribute="leading" constant="-1" id="gwN-4t-PmU"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="fileBrowser" destination="fsX-ug-j3r" id="mEe-gY-u44"/>
+                        <outlet property="pathControl" destination="ksV-jK-UE6" id="jKa-a9-IUs"/>
                     </connections>
                 </viewController>
                 <customObject id="FHp-yp-awR" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -801,11 +815,20 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="0eK-Qj-GWY">
+                                <rect key="frame" x="0.0" y="24" width="450" height="1"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="Bhw-Nq-THS"/>
+                                </constraints>
+                            </customView>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="0eK-Qj-GWY" firstAttribute="leading" secondItem="IGn-F0-ft8" secondAttribute="leading" id="3OT-zx-Pb1"/>
                             <constraint firstItem="XL6-Gf-YJQ" firstAttribute="leading" secondItem="vgU-KI-z5u" secondAttribute="trailing" constant="8" id="DYl-v7-bT9"/>
+                            <constraint firstItem="0eK-Qj-GWY" firstAttribute="top" secondItem="IGn-F0-ft8" secondAttribute="top" id="ILN-ft-7LD"/>
                             <constraint firstItem="vgU-KI-z5u" firstAttribute="centerY" secondItem="IGn-F0-ft8" secondAttribute="centerY" id="YNw-05-txb"/>
                             <constraint firstItem="XL6-Gf-YJQ" firstAttribute="centerY" secondItem="vgU-KI-z5u" secondAttribute="centerY" id="YmW-Q4-hOV"/>
+                            <constraint firstAttribute="trailing" secondItem="0eK-Qj-GWY" secondAttribute="trailing" id="lgn-VO-tOM"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="XL6-Gf-YJQ" secondAttribute="trailing" constant="16" id="q26-aw-7vN"/>
                             <constraint firstItem="vgU-KI-z5u" firstAttribute="leading" secondItem="IGn-F0-ft8" secondAttribute="leading" constant="16" id="z8c-0f-a74"/>
                         </constraints>
@@ -813,11 +836,12 @@
                     <connections>
                         <outlet property="hintLabel" destination="XL6-Gf-YJQ" id="uLe-Qj-Ree"/>
                         <outlet property="progressIndicator" destination="vgU-KI-z5u" id="lqp-Pe-ijC"/>
+                        <outlet property="separatorView" destination="0eK-Qj-GWY" id="BRv-qS-ytQ"/>
                     </connections>
                 </viewController>
                 <customObject id="Pev-1b-yzF" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="640" y="995"/>
+            <point key="canvasLocation" x="640" y="994.5"/>
         </scene>
     </scenes>
     <resources>

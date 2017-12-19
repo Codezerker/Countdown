@@ -8,13 +8,17 @@
 
 import Foundation
 
-class FileSystemNode {
+class FileSystemNode: NSObject {
     
     let url: URL
     let isDirectory: Bool
     var fileSize: Int
-    var children = [FileSystemNode]()
-    var childrenMap = [String: FileSystemNode]()
+    var sortedChildren: [FileSystemNode] {
+        return children.sorted { $0.fileSize > $1.fileSize }
+    }
+    
+    private var children = [FileSystemNode]()
+    private var childrenMap = [String: FileSystemNode]()
 
     init(url: URL) {
         self.url = url
@@ -25,7 +29,7 @@ class FileSystemNode {
     func addNodeToNearestParent(_ node: FileSystemNode) {
         autoreleasepool {
             guard let parentURL = node.url.parentDirectory else {
-                return
+                fatalError("parent node not found")
             }
             
             if parentURL == url {
@@ -35,15 +39,14 @@ class FileSystemNode {
                 let rootPath = url.path
                 let nodePath = node.url.path
                 guard nodePath.hasPrefix(rootPath) else {
-                    return
+                    fatalError("parent node not found")
                 }
 
                 let rootPathComponents = url.pathComponents
                 let nodePathComponents = node.url.pathComponents
                 let nodeFirstUniquePathComponent = nodePathComponents[rootPathComponents.count]
-                
                 guard let validParent = childrenMap[nodeFirstUniquePathComponent] else {
-                    return
+                    fatalError("parent node not found")
                 }
                 
                 validParent.addNodeToNearestParent(node)
@@ -51,22 +54,11 @@ class FileSystemNode {
             }
         }
     }
-}
-
-extension FileSystemNode: Hashable {
     
-    var hashValue: Int {
-        return url.hashValue
-    }
-    
-    static func ==(lhs: FileSystemNode, rhs: FileSystemNode) -> Bool {
-        return lhs.url == rhs.url
-    }
-}
-
-extension FileSystemNode: CustomDebugStringConvertible {
-    
-    var debugDescription: String {
-        return "\n\(url.path) \(fileSize)"
+    override func isEqual(to object: Any?) -> Bool {
+        guard let otherNode = object as? FileSystemNode else {
+            return false
+        }
+        return url == otherNode.url
     }
 }

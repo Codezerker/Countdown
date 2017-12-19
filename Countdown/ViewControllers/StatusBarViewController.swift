@@ -16,11 +16,16 @@ enum FileSystemScanStatus {
     
 class StatusBarViewController: NSViewController {
     
+    @IBOutlet private weak var separatorView: NSView!
     @IBOutlet private weak var progressIndicator: NSProgressIndicator!
     @IBOutlet private weak var hintLabel: NSTextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        separatorView.wantsLayer = true
+        separatorView.layer?.backgroundColor = NSColor.lightGray.cgColor
+        
         updateStatus(to: .none)
     }
     

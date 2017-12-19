@@ -11,8 +11,14 @@ import Cocoa
 class FileBrowserViewController: NSViewController {
 
     @IBOutlet private weak var fileBrowser: NSBrowser!
+    @IBOutlet private weak var pathControl: NSPathControl!
+    
     private var displayingNode: FileSystemNode?
-    private let formatter = ByteCountFormatter()
+    private let formatter: ByteCountFormatter = {
+        let formatter = ByteCountFormatter()
+        formatter.countStyle = .file
+        return formatter
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,10 +26,16 @@ class FileBrowserViewController: NSViewController {
     }
     
     func display(node: FileSystemNode) {
-        let path = fileBrowser.path()
-        displayingNode = node
-        fileBrowser.loadColumnZero()
-        fileBrowser.setPath(path)
+        if displayingNode == nil {
+            displayingNode = node
+            fileBrowser.loadColumnZero()
+            pathControl.url = node.url
+        } else {
+            displayingNode = node
+            for i in 0...fileBrowser.lastColumn {
+                fileBrowser.reloadColumn(i)
+            }
+        }
     }
 }
 
@@ -38,6 +50,9 @@ extension FileBrowserViewController: NSBrowserDelegate {
         fileBrowser.columnResizingType = .userColumnResizing
         // set delegate
         fileBrowser.delegate = self
+        // set actions
+        fileBrowser.target = self
+        fileBrowser.action = #selector(fileBrowserClicked)
     }
     
     func rootItem(for browser: NSBrowser) -> Any? {
@@ -48,14 +63,14 @@ extension FileBrowserViewController: NSBrowserDelegate {
         guard let node = item as? FileSystemNode else {
             return 0
         }
-        return node.children.count
+        return node.sortedChildren.count
     }
     
     func browser(_ browser: NSBrowser, child index: Int, ofItem item: Any?) -> Any {
         guard let node = item as? FileSystemNode else {
             fatalError() // panic!! because we don't know what to do!!
         }
-        return node.children.sorted(by: { $0.fileSize > $1.fileSize })[index]
+        return node.sortedChildren[index]
     }
     
     func browser(_ browser: NSBrowser, isLeafItem item: Any?) -> Bool {
@@ -71,5 +86,16 @@ extension FileBrowserViewController: NSBrowserDelegate {
         }
         let byteCount = formatter.string(fromByteCount: Int64(node.fileSize))
         return "\(byteCount) - \(node.displayName)"
+    }
+    
+    @IBAction private func fileBrowserClicked(_ sender: Any?) {
+        guard let selectedIndexPath = fileBrowser.selectionIndexPath else {
+            return
+        }
+        pathControl.url = fileSystemNode(for: selectedIndexPath).url
+    }
+    
+    private func fileSystemNode(for indexPath: IndexPath) -> FileSystemNode {
+        return fileBrowser.item(at: indexPath) as! FileSystemNode
     }
 }
