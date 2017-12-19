@@ -25,11 +25,11 @@ class FileBrowserViewController: NSViewController {
         setUpViews()
     }
     
-    func display(node: FileSystemNode) {
+    func display(node: FileSystemNode?) {
         if displayingNode == nil {
             displayingNode = node
             fileBrowser.loadColumnZero()
-            pathControl.url = node.url
+            pathControl.url = node?.url
         } else {
             displayingNode = node
             for i in 0...fileBrowser.lastColumn {

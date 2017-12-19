@@ -43,6 +43,7 @@ class MainWindowRootViewController: NSViewController {
 extension MainWindowRootViewController: FileScannerDelegate {
     
     private func startScanner(at url: URL) {
+        self.fileBrowserViewController?.display(node: nil)
         rootNode = FileSystemNode(url: url)
         scanner = FileScanner(fileURL: url)
         scanner?.delegate = self
@@ -65,11 +66,10 @@ extension MainWindowRootViewController: FileScannerDelegate {
             self.rootNode?.addNodeToNearestParent(node)
             
             let now = Date()
-            if now.timeIntervalSince(self.previousUpdate) > MainWindowRootViewController.updateInterval,
-               let node = self.rootNode {
+            if now.timeIntervalSince(self.previousUpdate) > MainWindowRootViewController.updateInterval {
                 self.previousUpdate = now
                 DispatchQueue.main.async {
-                    self.fileBrowserViewController?.display(node: node)
+                    self.fileBrowserViewController?.display(node: self.rootNode)
                 }
             }
         }
@@ -77,9 +77,7 @@ extension MainWindowRootViewController: FileScannerDelegate {
     
     func fileScannerDidFinishScanning(_ scanner: FileScanner, elapsedTime: TimeInterval) {
         DispatchQueue.main.async {
-            if let node = self.rootNode {
-                self.fileBrowserViewController?.display(node: node)
-            }
+            self.fileBrowserViewController?.display(node: self.rootNode)
             self.statusBarViewController?.updateStatus(to: .finished(elapsedTime))
             self.scanner = nil
         }
