@@ -92,6 +92,12 @@ extension FileBrowserViewController: NSBrowserDelegate {
         guard let node = item as? FileSystemNode else {
             fatalError() // panic!! because we don't know what to do!!
         }
+        if index > node.displayChildren.count {
+            // FIXME: for some reason this can happen sometimes
+            // return a invalid value to workaround,
+            // as in the next refresh, the tree will be self-corrected
+            return node
+        }
         return node.displayChildren[index]
     }
     
