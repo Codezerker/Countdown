@@ -15,12 +15,7 @@ protocol FileScannerDelegate: class {
 }
 
 class FileScanner {
-    
-    struct Queue {
-        static let scanning = DispatchQueue(label: "com.codezerker.countdown.scanning")
-        static let indexing = DispatchQueue(label: "com.codezerker.countdown.indexing")
-    }
-    
+        
     let fileURL: URL
     weak var delegate: FileScannerDelegate?
     

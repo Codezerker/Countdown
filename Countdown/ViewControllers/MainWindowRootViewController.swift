@@ -47,7 +47,7 @@ extension MainWindowRootViewController: FileScannerDelegate {
         rootNode = FileSystemNode(url: url)
         scanner = FileScanner(fileURL: url)
         scanner?.delegate = self
-        FileScanner.Queue.scanning.async {
+        Queue.scanning.async {
             self.scanner?.start()
         }
     }
@@ -58,16 +58,20 @@ extension MainWindowRootViewController: FileScannerDelegate {
         }
     }
     
-    private static let updateInterval: TimeInterval = 0.5
+    private static let updateInterval: TimeInterval = 1
     
     func fileScanner(_ scanner: FileScanner, didScanFileAt url: URL) {
-        FileScanner.Queue.indexing.async {
+        Queue.indexing.async {
             let node = FileSystemNode(url: url)
             self.rootNode?.addNodeToNearestParent(node)
             
             let now = Date()
-            if now.timeIntervalSince(self.previousUpdate) > MainWindowRootViewController.updateInterval {
-                self.previousUpdate = now
+            guard now.timeIntervalSince(self.previousUpdate) > MainWindowRootViewController.updateInterval else {
+                return
+            }
+            self.previousUpdate = now
+            
+            node.sortDisplayChildrenToRoot {
                 DispatchQueue.main.async {
                     self.fileBrowserViewController?.display(node: self.rootNode)
                 }

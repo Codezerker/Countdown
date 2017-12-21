@@ -13,11 +13,8 @@ class FileSystemNode: NSObject {
     let url: URL
     let isDirectory: Bool
     var fileSize: Int
-    var sortedChildren: [FileSystemNode] {
-        return children.sorted { $0.fileSize > $1.fileSize }
-    }
-    
-    private var children = [FileSystemNode]()
+    weak var parent: FileSystemNode?
+    var displayChildren = [FileSystemNode]()
     private var childrenMap = [String: FileSystemNode]()
 
     init(url: URL) {
@@ -33,8 +30,9 @@ class FileSystemNode: NSObject {
             }
             
             if parentURL == url {
-                children.append(node)
                 childrenMap[node.url.lastPathComponent] = node
+                displayChildren.append(node)
+                node.parent = self
             } else {
                 let rootPath = url.path
                 let nodePath = node.url.path
@@ -48,17 +46,45 @@ class FileSystemNode: NSObject {
                 guard let validParent = childrenMap[nodeFirstUniquePathComponent] else {
                     fatalError("parent node not found")
                 }
-                
+
                 validParent.addNodeToNearestParent(node)
                 validParent.fileSize += node.fileSize
             }
         }
     }
-    
+        
     override func isEqual(to object: Any?) -> Bool {
         guard let otherNode = object as? FileSystemNode else {
             return false
         }
         return url == otherNode.url
+    }
+}
+
+import AppKit
+
+extension FileSystemNode {
+    
+    var displayName: String {
+        return url.localizedName ?? url.lastPathComponent
+    }
+    
+    var displayIcon: NSImage {
+        return NSWorkspace.shared.icon(forFile: url.path)
+    }
+    
+    func sortDisplayChildrenToRoot(completion: @escaping () -> Void) {
+        guard fileSize > 0 else {
+            completion()
+            return
+        }
+        Queue.sorting.async {
+            var sortingNode: FileSystemNode? = self
+            while sortingNode != nil {
+                sortingNode?.displayChildren.sort { $0.fileSize > $1.fileSize }
+                sortingNode = sortingNode?.parent
+            }
+            completion()
+        }
     }
 }

@@ -85,14 +85,14 @@ extension FileBrowserViewController: NSBrowserDelegate {
         guard let node = item as? FileSystemNode else {
             return 0
         }
-        return node.sortedChildren.count
+        return node.displayChildren.count
     }
     
     func browser(_ browser: NSBrowser, child index: Int, ofItem item: Any?) -> Any {
         guard let node = item as? FileSystemNode else {
             fatalError() // panic!! because we don't know what to do!!
         }
-        return node.sortedChildren[index]
+        return node.displayChildren[index]
     }
     
     func browser(_ browser: NSBrowser, isLeafItem item: Any?) -> Bool {
