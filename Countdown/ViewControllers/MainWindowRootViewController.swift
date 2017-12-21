@@ -38,6 +38,41 @@ class MainWindowRootViewController: NSViewController {
             self.startScanner(at: url)
         }
     }
+    
+    @IBAction private func stopScan(_ sender: Any?) {
+        scanner?.stop()
+    }
+    
+    @IBAction private func toggleLog(_ sender: Any?) {
+        // TODO
+    }
+    
+    override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+        return validateActionItem(with: menuItem.tag)
+    }
+    
+    override func validateToolbarItem(_ item: NSToolbarItem) -> Bool {
+        return validateActionItem(with: item.tag)
+    }
+    
+    struct ActionItemTag {
+        static let start = 1001
+        static let stop = 1002
+        static let showLog = 1010
+    }
+    
+    private func validateActionItem(with tag: Int) -> Bool {
+        switch tag {
+        case ActionItemTag.start:
+            return scanner == nil ? true : !scanner!.isRunning
+        case ActionItemTag.stop:
+            return scanner?.isRunning == true
+        case ActionItemTag.showLog:
+            return true
+        default:
+            return true
+        }
+    }
 }
 
 extension MainWindowRootViewController: FileScannerDelegate {

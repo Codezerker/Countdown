@@ -18,8 +18,12 @@ class FileScanner {
         
     let fileURL: URL
     weak var delegate: FileScannerDelegate?
+    var isRunning: Bool {
+        return shouldContinue
+    }
     
     private var directoryEnumerator: FileManager.DirectoryEnumerator?
+    private var shouldContinue: Bool = false
     
     init(fileURL: URL) {
         self.fileURL = fileURL
@@ -33,11 +37,18 @@ class FileScanner {
                                                                  // TODO: handle error
                                                                  return true
                                                              })
+        
+        shouldContinue = true
+        
         let startedAt = Date()
         delegate?.fileScannerDidStartScanning(self)
-        while let url = directoryEnumerator?.nextObject() as? URL {
+        while shouldContinue, let url = directoryEnumerator?.nextObject() as? URL {
             delegate?.fileScanner(self, didScanFileAt: url)
         }
         delegate?.fileScannerDidFinishScanning(self, elapsedTime: Date().timeIntervalSince(startedAt))
+    }
+    
+    func stop() {
+        shouldContinue = false
     }
 }
