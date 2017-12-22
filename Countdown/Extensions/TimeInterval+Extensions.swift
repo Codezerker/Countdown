@@ -50,6 +50,6 @@ extension TimeInterval {
         }
         
         return descriptions.isEmpty ? "instantly" :
-                                      "with " + descriptions.joined(separator: ", ")
+                                      "with " + descriptions.joined(separator: " ")
     }
 }
