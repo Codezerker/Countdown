@@ -6,7 +6,7 @@
 //  Copyright © 2017 Codezerker. All rights reserved.
 //
 
-import Foundation
+import AppKit
 
 class FileSystemNode: NSObject {
     
@@ -15,8 +15,10 @@ class FileSystemNode: NSObject {
     var fileSize: Int
     weak var parent: FileSystemNode?
     var displayChildren = [FileSystemNode]()
+    
     private var childrenMap = [String: FileSystemNode]()
-
+    private var cachedFileIcon: NSImage?
+    
     init(url: URL) {
         self.url = url
         isDirectory = url.isDirectory
@@ -61,8 +63,6 @@ class FileSystemNode: NSObject {
     }
 }
 
-import AppKit
-
 extension FileSystemNode {
     
     var displayName: String {
@@ -70,7 +70,12 @@ extension FileSystemNode {
     }
     
     var displayIcon: NSImage {
-        return NSWorkspace.shared.icon(forFile: url.path)
+        guard let icon = cachedFileIcon else {
+            let icon = NSWorkspace.shared.icon(forFile: url.path)
+            cachedFileIcon = icon
+            return icon
+        }
+        return icon
     }
     
     func sortDisplayChildrenToRoot(completion: @escaping () -> Void) {
