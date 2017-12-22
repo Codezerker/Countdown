@@ -10,7 +10,13 @@ Sometimes our Macs just went out of disk space, and we don't know why.
 
 Sometimes after a restart, the problem went away, but a few days later, it comes again.
 
-Finding out which files are occupying our disk space is obscure and time-consuming, thus we hope this tool will help you a bit on that task.
+Finding out which files are occupying our disk space is obscure and time-consuming, thus we hope `Countdown` will help you a bit on that task.
+
+### Sandboxed
+
+`Countdown` was sandbox enabled and only ask for read-only permission for user selected files.
+
+This can make sure no matter where it scans, it does absolutely no harm.
 
 ## System Requirements
 
