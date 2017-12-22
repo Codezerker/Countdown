@@ -12,4 +12,5 @@ struct Queue {
     static let scanning = DispatchQueue(label: "com.codezerker.countdown.scanning")
     static let indexing = DispatchQueue(label: "com.codezerker.countdown.indexing")
     static let sorting = DispatchQueue(label: "com.codezerker.countdown.sorting", attributes: [.concurrent])
+    static let logging = DispatchQueue(label: "com.codezerker.countdown.logging")
 }

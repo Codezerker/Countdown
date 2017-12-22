@@ -44,7 +44,7 @@ class MainWindowRootViewController: NSViewController {
     }
     
     @IBAction private func toggleLog(_ sender: Any?) {
-        // TODO
+        NSWorkspace.shared.launchApplication("Console")
     }
     
     override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
@@ -96,6 +96,7 @@ extension MainWindowRootViewController: FileScannerDelegate {
     private static let updateInterval: TimeInterval = 1
     
     func fileScanner(_ scanner: FileScanner, didScanFileAt url: URL) {
+        Logger.log(message: "Scanning '\(url.path)'")
         Queue.indexing.async {
             let node = FileSystemNode(url: url)
             self.rootNode?.addNodeToNearestParent(node)
