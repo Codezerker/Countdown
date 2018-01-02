@@ -22,3 +22,5 @@ This can make sure no matter where it scans, it does absolutely no harm.
 
 - Tested on macOS 10.13
 - Should work on macOS 10.10 and later
+
+Download pre-built binaries [here](https://github.com/Codezerker/Countdown/releases).
