@@ -8,6 +8,12 @@
 
 import Cocoa
 
+struct ActionItemTag {
+    static let start = 1001
+    static let stop = 1002
+    static let showLog = 1010
+}
+
 class MainWindowRootViewController: NSViewController {
     
     private var rootNode: FileSystemNode?
@@ -22,7 +28,7 @@ class MainWindowRootViewController: NSViewController {
         statusBarViewController = childViewControllers(ofType: StatusBarViewController.self).first
     }
     
-    @IBAction private func scanFolderClicked(_ sender: Any?) {
+    @IBAction func scanFolderClicked(_ sender: Any?) {
         guard scanner == nil,
               let window = view.window else {
             return
@@ -39,28 +45,18 @@ class MainWindowRootViewController: NSViewController {
         }
     }
     
-    @IBAction private func stopScan(_ sender: Any?) {
+    @IBAction func stopScan(_ sender: Any?) {
         scanner?.stop()
     }
     
-    @IBAction private func toggleLog(_ sender: Any?) {
+    @IBAction func toggleLog(_ sender: Any?) {
         NSWorkspace.shared.launchApplication("Console")
     }
     
     override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
         return validateActionItem(with: menuItem.tag)
     }
-    
-    override func validateToolbarItem(_ item: NSToolbarItem) -> Bool {
-        return validateActionItem(with: item.tag)
-    }
-    
-    struct ActionItemTag {
-        static let start = 1001
-        static let stop = 1002
-        static let showLog = 1010
-    }
-    
+        
     private func validateActionItem(with tag: Int) -> Bool {
         switch tag {
         case ActionItemTag.start:

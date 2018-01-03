@@ -17,6 +17,7 @@
 		0B7967481FE91E6000B742E8 /* TimeInterval+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7967471FE91E6000B742E8 /* TimeInterval+Extensions.swift */; };
 		0B7967681FEBABE900B742E8 /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7967671FEBABE900B742E8 /* Queue.swift */; };
 		0B7967891FED005100B742E8 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7967881FED005100B742E8 /* Logger.swift */; };
+		0BB8CE8D1FFCB657000688A3 /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB8CE8C1FFCB657000688A3 /* MainWindowController.swift */; };
 		0BE809D41FE5F4B30071F1F5 /* NSViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE809D31FE5F4B30071F1F5 /* NSViewController+Extensions.swift */; };
 		0BE809D61FE5F6480071F1F5 /* FileScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE809D51FE5F6480071F1F5 /* FileScanner.swift */; };
 		0BE809D81FE5FBD80071F1F5 /* URL+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE809D71FE5FBD80071F1F5 /* URL+Extensions.swift */; };
@@ -39,6 +40,7 @@
 		0B7967471FE91E6000B742E8 /* TimeInterval+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeInterval+Extensions.swift"; sourceTree = "<group>"; };
 		0B7967671FEBABE900B742E8 /* Queue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
 		0B7967881FED005100B742E8 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		0BB8CE8C1FFCB657000688A3 /* MainWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
 		0BE809D31FE5F4B30071F1F5 /* NSViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSViewController+Extensions.swift"; sourceTree = "<group>"; };
 		0BE809D51FE5F6480071F1F5 /* FileScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileScanner.swift; sourceTree = "<group>"; };
 		0BE809D71FE5FBD80071F1F5 /* URL+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extensions.swift"; sourceTree = "<group>"; };
@@ -81,16 +83,17 @@
 				0BE809D91FE60D230071F1F5 /* Models */,
 				0B7967691FEBB49000B742E8 /* Extensions */,
 				0BE809D21FE5F49B0071F1F5 /* Utilities */,
-				0B04C1D91FE50F950068EB25 /* ViewControllers */,
+				0B04C1D91FE50F950068EB25 /* Controllers */,
 				0B04C1D21FE50CDE0068EB25 /* Info.plist */,
 				0B04C1D31FE50CDE0068EB25 /* Countdown.entitlements */,
 			);
 			path = Countdown;
 			sourceTree = "<group>";
 		};
-		0B04C1D91FE50F950068EB25 /* ViewControllers */ = {
+		0B04C1D91FE50F950068EB25 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				0BB8CE8C1FFCB657000688A3 /* MainWindowController.swift */,
 				0B04C1CB1FE50CDE0068EB25 /* MainWindowRootViewController.swift */,
 				0B04C1DA1FE50FEE0068EB25 /* FileBrowserViewController.swift */,
 				0B04C1DC1FE510120068EB25 /* StatusBarViewController.swift */,
@@ -98,7 +101,7 @@
 				0B7967441FE90FF500B742E8 /* FileSystemBrowserCell.m */,
 				0B7967431FE90FF400B742E8 /* Countdown-Bridging-Header.h */,
 			);
-			path = ViewControllers;
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		0B7967691FEBB49000B742E8 /* Extensions */ = {
@@ -208,6 +211,7 @@
 			files = (
 				0B04C1DD1FE510120068EB25 /* StatusBarViewController.swift in Sources */,
 				0BE809D81FE5FBD80071F1F5 /* URL+Extensions.swift in Sources */,
+				0BB8CE8D1FFCB657000688A3 /* MainWindowController.swift in Sources */,
 				0BE809DB1FE60D430071F1F5 /* FileSystemNode.swift in Sources */,
 				0B7967681FEBABE900B742E8 /* Queue.swift in Sources */,
 				0B04C1CC1FE50CDE0068EB25 /* MainWindowRootViewController.swift in Sources */,
@@ -355,7 +359,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = com.codezerker.Countdown;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "Countdown/ViewControllers/Countdown-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Countdown/Controllers/Countdown-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 			};
@@ -375,7 +379,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = com.codezerker.Countdown;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "Countdown/ViewControllers/Countdown-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Countdown/Controllers/Countdown-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 			};
 			name = Release;

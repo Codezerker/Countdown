@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
+        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -373,40 +374,13 @@
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
             <objects>
-                <windowController id="B8D-0N-5wS" sceneMemberID="viewController">
-                    <window key="window" title="Countdown" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" tabbingMode="disallowed" id="IQv-IB-iLA">
+                <windowController id="B8D-0N-5wS" customClass="MainWindowController" customModule="Countdown" customModuleProvider="target" sceneMemberID="viewController">
+                    <window key="window" title="Countdown" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" tabbingMode="disallowed" id="IQv-IB-iLA" customClass="MainWindow" customModule="Countdown" customModuleProvider="target">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="196" y="240" width="480" height="270"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
                         <value key="minSize" type="size" width="480" height="270"/>
-                        <toolbar key="toolbar" implicitIdentifier="C50097CA-8EB4-4535-836D-CA07672A752F" autosavesConfiguration="NO" allowsUserCustomization="NO" displayMode="iconAndLabel" sizeMode="small" id="nxT-ZP-v14">
-                            <allowedToolbarItems>
-                                <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="0jF-mg-qYr"/>
-                                <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="rDB-Ms-u7O"/>
-                                <toolbarItem implicitItemIdentifier="0B264AE1-71C4-44A9-ACB1-BC4E6AF6546B" label="Scan" paletteLabel="Scan" tag="1001" image="NSFolder" id="x60-dW-9Xy">
-                                    <connections>
-                                        <action selector="scanFolderClicked:" target="Oky-zY-oP4" id="qlg-RQ-4e9"/>
-                                    </connections>
-                                </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="E917316F-8D75-4C76-AD29-0BDF61E5BBE7" label="Stop" paletteLabel="Stop" tag="1002" image="NSCaution" id="Ybr-Vg-0cw">
-                                    <connections>
-                                        <action selector="stopScan:" target="Oky-zY-oP4" id="aV7-lD-iPH"/>
-                                    </connections>
-                                </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="F477780C-B75B-4CA7-B881-F65CD6F02D79" label="Log" paletteLabel="Log" tag="1010" image="NSInfo" id="LST-ac-8UO">
-                                    <connections>
-                                        <action selector="toggleLog:" target="Oky-zY-oP4" id="DTm-LL-q6X"/>
-                                    </connections>
-                                </toolbarItem>
-                            </allowedToolbarItems>
-                            <defaultToolbarItems>
-                                <toolbarItem reference="x60-dW-9Xy"/>
-                                <toolbarItem reference="Ybr-Vg-0cw"/>
-                                <toolbarItem reference="rDB-Ms-u7O"/>
-                                <toolbarItem reference="LST-ac-8UO"/>
-                            </defaultToolbarItems>
-                        </toolbar>
                         <connections>
                             <outlet property="delegate" destination="B8D-0N-5wS" id="98r-iN-zZc"/>
                         </connections>
@@ -546,9 +520,4 @@
             <point key="canvasLocation" x="640" y="994.5"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="NSCaution" width="32" height="32"/>
-        <image name="NSFolder" width="32" height="32"/>
-        <image name="NSInfo" width="32" height="32"/>
-    </resources>
 </document>
