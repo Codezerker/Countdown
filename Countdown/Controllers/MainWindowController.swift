@@ -21,12 +21,12 @@ class MainWindowController: NSWindowController {
 private extension MainWindowController {
     
     private struct ToolbarIdentifiers {
-        static let `default` = NSToolbar.Identifier(rawValue: "com.codezerker.countdown.toolbar")
+        static let `default` = NSToolbar.Identifier("com.codezerker.countdown.toolbar")
     }
     
     private func setUpToolbar() {
         let toolbar = NSToolbar(identifier: ToolbarIdentifiers.default)
-        toolbar.allowsUserCustomization = false
+        toolbar.allowsUserCustomization = true
         toolbar.delegate = self
         window?.toolbar = toolbar
     }
@@ -35,14 +35,17 @@ private extension MainWindowController {
 extension MainWindowController: NSToolbarDelegate {
     
     private struct ToolbarItemIdentifiers {
-        static let scan = NSToolbarItem.Identifier(rawValue: "com.codezerker.countdown.toolbar.scan")
-        static let stop = NSToolbarItem.Identifier(rawValue: "com.codezerker.countdown.toolbar.stop")
-        static let log = NSToolbarItem.Identifier(rawValue: "com.codezerker.countdown.toolbar.log")
+        static let scan = NSToolbarItem.Identifier("com.codezerker.countdown.toolbar.scan")
+        static let stop = NSToolbarItem.Identifier("com.codezerker.countdown.toolbar.stop")
+        static let log = NSToolbarItem.Identifier("com.codezerker.countdown.toolbar.log")
+        static let showInFinder = NSToolbarItem.Identifier("com.codezerker.countdown.toolbar.showInFinder")
         
         static var `default`: [NSToolbarItem.Identifier] {
             return [
                 scan,
                 stop,
+                .space,
+                showInFinder,
                 .flexibleSpace,
                 log,
             ]
@@ -53,6 +56,7 @@ extension MainWindowController: NSToolbarDelegate {
                 scan,
                 stop,
                 log,
+                showInFinder,
                 .flexibleSpace,
                 .space,
             ]
@@ -68,7 +72,7 @@ extension MainWindowController: NSToolbarDelegate {
     
     private static let itemInfoMap: [NSToolbarItem.Identifier : ToolbarItemInfo] = [
         ToolbarItemIdentifiers.scan : ToolbarItemInfo(title: "Scan",
-                                                      iconImageName: NSImage.Name(rawValue: "FolderTemplate"),
+                                                      iconImageName: NSImage.Name("FolderTemplate"),
                                                       tag: ActionItemTag.start,
                                                       action: #selector(MainWindowRootViewController.scanFolderClicked)),
         ToolbarItemIdentifiers.stop : ToolbarItemInfo(title: "Stop",
@@ -76,9 +80,13 @@ extension MainWindowController: NSToolbarDelegate {
                                                       tag: ActionItemTag.stop,
                                                       action: #selector(MainWindowRootViewController.stopScan)),
         ToolbarItemIdentifiers.log : ToolbarItemInfo(title: "Log",
-                                                     iconImageName: NSImage.Name(rawValue: "InfoTemplate"),
+                                                     iconImageName: NSImage.Name("InfoTemplate"),
                                                      tag: ActionItemTag.showLog,
                                                      action: #selector(MainWindowRootViewController.toggleLog)),
+        ToolbarItemIdentifiers.showInFinder : ToolbarItemInfo(title: "Show in Finder",
+                                                              iconImageName: NSImage.Name.pathTemplate,
+                                                              tag: ActionItemTag.showInFinder,
+                                                              action: #selector(MainWindowRootViewController.showInFinder)),
     ]
     
     private func button(with toolbarItemInfo: ToolbarItemInfo) -> NSButton {
@@ -97,7 +105,8 @@ extension MainWindowController: NSToolbarDelegate {
             return NSToolbarItem(itemIdentifier: itemIdentifier)
         }
         
-        let toolbarItem = NSToolbarItem(itemIdentifier: itemIdentifier)
+        let toolbarItem = ButtonToolbarItem(itemIdentifier: itemIdentifier)
+        toolbarItem.validator = self
         toolbarItem.label = toolbarItemInfo.title
         toolbarItem.view = button(with: toolbarItemInfo)
         toolbarItem.tag = toolbarItemInfo.tag
@@ -124,5 +133,15 @@ extension MainWindowController: NSToolbarDelegate {
     
     func toolbarDidRemoveItem(_ notification: Notification) {
         // ...
+    }
+}
+
+extension MainWindowController: ButtonToolbarItemValidator {
+    
+    func validateToolbarItem(_ item: ButtonToolbarItem) -> Bool {
+        guard let rootViewController = contentViewController as? MainWindowRootViewController else {
+            return false
+        }
+        return rootViewController.validateActionItem(with: item.tag)
     }
 }

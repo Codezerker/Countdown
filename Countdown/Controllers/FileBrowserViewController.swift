@@ -45,6 +45,21 @@ class FileBrowserViewController: NSViewController {
     }
 }
 
+extension FileBrowserViewController {
+    
+    var showInFinderEnabled: Bool {
+        return fileBrowser.selectedCell() != nil
+    }
+    
+    func openSelectedNodeInFinder() {
+        guard let selectedCell = fileBrowser.selectedCell() as? FileSystemBrowserCell,
+              let selectedNode = selectedCell.displayingNode else {
+            return
+        }
+        NSWorkspace.shared.activateFileViewerSelecting([selectedNode.url])
+    }
+}
+
 private extension FileBrowserViewController {
     
     private struct Layout {
@@ -85,6 +100,11 @@ extension FileBrowserViewController: NSBrowserDelegate {
         guard let node = item as? FileSystemNode else {
             return 0
         }
+        
+        // assuming this method will only be called once for each node
+        // sorting children with file size
+        node.displayChildren.sort { $0.fileSize > $1.fileSize }
+        
         return node.displayChildren.count
     }
     

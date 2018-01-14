@@ -69,6 +69,13 @@
                                                 <action selector="stopScan:" target="Ady-hI-5gd" id="icO-z6-438"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="C6l-1t-Dwb"/>
+                                        <menuItem title="Show in Finder" tag="1011" id="OZu-Ta-LqJ">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="openSelectedNodeInFinder:" target="Ady-hI-5gd" id="9IZ-Up-Knh"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem isSeparatorItem="YES" id="A7k-ht-JMP"/>
                                         <menuItem title="Close" keyEquivalent="w" id="DVo-aG-piG">
                                             <connections>

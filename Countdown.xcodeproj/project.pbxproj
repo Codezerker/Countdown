@@ -17,6 +17,7 @@
 		0B7967481FE91E6000B742E8 /* TimeInterval+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7967471FE91E6000B742E8 /* TimeInterval+Extensions.swift */; };
 		0B7967681FEBABE900B742E8 /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7967671FEBABE900B742E8 /* Queue.swift */; };
 		0B7967891FED005100B742E8 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7967881FED005100B742E8 /* Logger.swift */; };
+		0BA1BD9C200B39F0009FF767 /* ButtonToolbarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA1BD9B200B39F0009FF767 /* ButtonToolbarItem.swift */; };
 		0BB8CE8D1FFCB657000688A3 /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB8CE8C1FFCB657000688A3 /* MainWindowController.swift */; };
 		0BE809D41FE5F4B30071F1F5 /* NSViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE809D31FE5F4B30071F1F5 /* NSViewController+Extensions.swift */; };
 		0BE809D61FE5F6480071F1F5 /* FileScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE809D51FE5F6480071F1F5 /* FileScanner.swift */; };
@@ -40,6 +41,7 @@
 		0B7967471FE91E6000B742E8 /* TimeInterval+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeInterval+Extensions.swift"; sourceTree = "<group>"; };
 		0B7967671FEBABE900B742E8 /* Queue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
 		0B7967881FED005100B742E8 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		0BA1BD9B200B39F0009FF767 /* ButtonToolbarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonToolbarItem.swift; sourceTree = "<group>"; };
 		0BB8CE8C1FFCB657000688A3 /* MainWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
 		0BE809D31FE5F4B30071F1F5 /* NSViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSViewController+Extensions.swift"; sourceTree = "<group>"; };
 		0BE809D51FE5F6480071F1F5 /* FileScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileScanner.swift; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 				0BE809D91FE60D230071F1F5 /* Models */,
 				0B7967691FEBB49000B742E8 /* Extensions */,
 				0BE809D21FE5F49B0071F1F5 /* Utilities */,
+				0BA1BD9A200B39D1009FF767 /* Views */,
 				0B04C1D91FE50F950068EB25 /* Controllers */,
 				0B04C1D21FE50CDE0068EB25 /* Info.plist */,
 				0B04C1D31FE50CDE0068EB25 /* Countdown.entitlements */,
@@ -112,6 +115,14 @@
 				0B7967471FE91E6000B742E8 /* TimeInterval+Extensions.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		0BA1BD9A200B39D1009FF767 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0BA1BD9B200B39F0009FF767 /* ButtonToolbarItem.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		0BE809D21FE5F49B0071F1F5 /* Utilities */ = {
@@ -219,6 +230,7 @@
 				0B04C1DB1FE50FEE0068EB25 /* FileBrowserViewController.swift in Sources */,
 				0B7967891FED005100B742E8 /* Logger.swift in Sources */,
 				0B04C1CA1FE50CDE0068EB25 /* AppDelegate.swift in Sources */,
+				0BA1BD9C200B39F0009FF767 /* ButtonToolbarItem.swift in Sources */,
 				0B7967481FE91E6000B742E8 /* TimeInterval+Extensions.swift in Sources */,
 				0B7967461FE90FF500B742E8 /* FileSystemBrowserCell.m in Sources */,
 				0BE809D41FE5F4B30071F1F5 /* NSViewController+Extensions.swift in Sources */,
