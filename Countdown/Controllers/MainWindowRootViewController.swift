@@ -62,7 +62,7 @@ class MainWindowRootViewController: NSViewController {
         return validateActionItem(with: menuItem.tag)
     }
         
-    private func validateActionItem(with tag: Int) -> Bool {
+    func validateActionItem(with tag: Int) -> Bool {
         switch tag {
         case ActionItemTag.start:
             return scanner == nil ? true : !scanner!.isRunning

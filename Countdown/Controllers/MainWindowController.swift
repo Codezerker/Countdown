@@ -105,7 +105,8 @@ extension MainWindowController: NSToolbarDelegate {
             return NSToolbarItem(itemIdentifier: itemIdentifier)
         }
         
-        let toolbarItem = NSToolbarItem(itemIdentifier: itemIdentifier)
+        let toolbarItem = ButtonToolbarItem(itemIdentifier: itemIdentifier)
+        toolbarItem.validator = self
         toolbarItem.label = toolbarItemInfo.title
         toolbarItem.view = button(with: toolbarItemInfo)
         toolbarItem.tag = toolbarItemInfo.tag
@@ -132,5 +133,15 @@ extension MainWindowController: NSToolbarDelegate {
     
     func toolbarDidRemoveItem(_ notification: Notification) {
         // ...
+    }
+}
+
+extension MainWindowController: ButtonToolbarItemValidator {
+    
+    func validateToolbarItem(_ item: ButtonToolbarItem) -> Bool {
+        guard let rootViewController = contentViewController as? MainWindowRootViewController else {
+            return false
+        }
+        return rootViewController.validateActionItem(with: item.tag)
     }
 }
