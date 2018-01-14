@@ -85,6 +85,11 @@ extension FileBrowserViewController: NSBrowserDelegate {
         guard let node = item as? FileSystemNode else {
             return 0
         }
+        
+        // assuming this method will only be called once for each node
+        // sorting children with file size
+        node.displayChildren.sort { $0.fileSize > $1.fileSize }
+        
         return node.displayChildren.count
     }
     

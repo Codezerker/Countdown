@@ -103,10 +103,8 @@ extension MainWindowRootViewController: FileScannerDelegate {
             }
             self.previousUpdate = now
             
-            node.sortDisplayChildrenToRoot {
-                DispatchQueue.main.async {
-                    self.fileBrowserViewController?.display(node: self.rootNode)
-                }
+            DispatchQueue.main.async {
+                self.fileBrowserViewController?.display(node: self.rootNode)
             }
         }
     }

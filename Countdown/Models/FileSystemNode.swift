@@ -76,20 +76,5 @@ extension FileSystemNode {
             return icon
         }
         return icon
-    }
-    
-    func sortDisplayChildrenToRoot(completion: @escaping () -> Void) {
-        guard fileSize > 0 else {
-            completion()
-            return
-        }
-        Queue.sorting.async {
-            var sortingNode: FileSystemNode? = self
-            while sortingNode != nil {
-                sortingNode?.displayChildren.sort { $0.fileSize > $1.fileSize }
-                sortingNode = sortingNode?.parent
-            }
-            completion()
-        }
-    }
+    }    
 }
