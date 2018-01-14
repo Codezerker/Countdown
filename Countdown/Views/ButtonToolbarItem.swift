@@ -21,6 +21,8 @@ class ButtonToolbarItem: NSToolbarItem {
     }
     
     override func validate() {
-        button?.isEnabled = validator?.validateToolbarItem(self) ?? false
+        let enabled = validator?.validateToolbarItem(self) ?? false
+        isEnabled = enabled
+        button?.isEnabled = enabled
     }
 }
