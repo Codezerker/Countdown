@@ -12,6 +12,7 @@ struct ActionItemTag {
     static let start = 1001
     static let stop = 1002
     static let showLog = 1010
+    static let showInFinder = 1011
 }
 
 class MainWindowRootViewController: NSViewController {
@@ -53,6 +54,10 @@ class MainWindowRootViewController: NSViewController {
         NSWorkspace.shared.launchApplication("Console")
     }
     
+    @IBAction func showInFinder(_ sender: Any?) {
+        fileBrowserViewController?.openSelectedNodeInFinder()
+    }
+    
     override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
         return validateActionItem(with: menuItem.tag)
     }
@@ -65,6 +70,8 @@ class MainWindowRootViewController: NSViewController {
             return scanner?.isRunning == true
         case ActionItemTag.showLog:
             return true
+        case ActionItemTag.showInFinder:
+            return fileBrowserViewController?.showInFinderEnabled == true
         default:
             return true
         }

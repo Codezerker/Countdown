@@ -45,6 +45,21 @@ class FileBrowserViewController: NSViewController {
     }
 }
 
+extension FileBrowserViewController {
+    
+    var showInFinderEnabled: Bool {
+        return fileBrowser.selectedCell() != nil
+    }
+    
+    func openSelectedNodeInFinder() {
+        guard let selectedCell = fileBrowser.selectedCell() as? FileSystemBrowserCell,
+              let selectedNode = selectedCell.displayingNode else {
+            return
+        }
+        NSWorkspace.shared.activateFileViewerSelecting([selectedNode.url])
+    }
+}
+
 private extension FileBrowserViewController {
     
     private struct Layout {
