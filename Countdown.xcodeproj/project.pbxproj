@@ -365,7 +365,7 @@
 				CODE_SIGN_ENTITLEMENTS = Countdown/Countdown.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = 37G4TUHERL;
+				DEVELOPMENT_TEAM = 55724LR9PN;
 				INFOPLIST_FILE = Countdown/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
@@ -385,7 +385,7 @@
 				CODE_SIGN_ENTITLEMENTS = Countdown/Countdown.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = 37G4TUHERL;
+				DEVELOPMENT_TEAM = 55724LR9PN;
 				INFOPLIST_FILE = Countdown/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
