@@ -24,7 +24,7 @@ class StatusBarViewController: NSViewController {
         super.viewDidLoad()
 
         separatorView.wantsLayer = true
-        separatorView.layer?.backgroundColor = NSColor.lightGray.cgColor
+        separatorView.layer?.backgroundColor = NSColor.gridColor.cgColor
         
         updateStatus(to: .none)
     }
